@@ -1,37 +1,34 @@
-from time import sleep
 from behave import *
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-@given(u'Edge browser is Launched')
-def launchEdgeDriver(context):
-    context.driver = webdriver.Edge()
-    context.driver.maximize_window()
+@given(u'Chrome browser is Launched')
+def launchChromeBrowser(context):
+    context.driver = webdriver.Chrome()
 
-@when(u'Open NP website')
-def openFormyPage(context):
+@when(u'Open Ngee Ann Polytechnic website')
+def openNPWebsite(context):
     context.driver.get("https://www.np.edu.sg/home")
 
-@then(u'Navigate to School of ICT')
-def findICT(context):
-    schools = context.driver.find_element(By.PARTIAL_LINK_TEXT, "Schools & Courses").click()
-    school = context.driver.find_element(By.PARTIAL_LINK_TEXT, "School of InfoComm Technology").click()
+@then(u'NP logo should be present on the page')
+def checkNpLogoPresence(context):
+    # Find the NP logo image element by alt attribute
+    np_logo_element = context.driver.find_element(By.XPATH, "//img[@alt='Ngee Ann Polytechnic']")
+    
+    # Assert that the NP logo element is present
+    assert np_logo_element, "NP logo is not present on the page."
 
-@then(u'Navigate to Overflow SIG')
-def findOverflow(context):
-    findICT(context)
-    ict_life = context.driver.find_element(By.CSS_SELECTOR, "h2#ictian-life")
-    context.driver.execute_script("arguments[0].scrollIntoView();", ict_life)
-    sleep(3)
-    overflow = context.driver.find_element(By.XPATH, "/html/body/main/section[2]/div/div[2]/div[2]/div[11]/div[6]/div[1]").click()
-    sleep(3)
+@when(u'Navigate to the Academic Calendar page')
+def navigateToAcademicCalendar(context):
+    # Directly navigate to the Academic Calendar page using the provided URL
+    context.driver.get("https://www.np.edu.sg/admissions-enrolment/guide-for-prospective-students/academic-calendar")
 
-@then(u'Click WhatsApp button in School of ICT webpage')
-def findX(context):
-    findICT(context)
-    twitter = context.driver.find_element(By.CSS_SELECTOR, "#st-2 > div.st-btn.st-last").click()
-    sleep(3)
+@then(u'Verify Academic Calendar page is open')
+def verifyAcademicCalendarPage(context):
+    
+    # For example, checking the title of the page
+    assert "Academic Calendar" in context.driver.title, "The page is not the Academic Calendar."
 
-@then(u'Close browser')
+@then(u'Close the browser')
 def closeBrowser(context):
-    context.driver.close()
+    context.driver.quit()

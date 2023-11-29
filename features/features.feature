@@ -1,10 +1,9 @@
-Feature: Test NP website
-    Background: Common Steps
-        Given Edge browser is Launched
-        When Open NP website
-    Scenario: Find out about Overflow SIG
-        Then Navigate to Overflow SIG
-        And Close browser
-    Scenario: Share the School of ICT on WhatsApp
-        Then Click WhatsApp button in School of ICT webpage
-        And Close browser
+Feature: Check NP Logo and Navigate to Academic Calendar
+
+  Scenario: Verify the presence of NP Logo and Navigate to Academic Calendar
+    Given Chrome browser is Launched
+    When Open Ngee Ann Polytechnic website
+    Then NP logo should be present on the page
+    When Navigate to the Academic Calendar page
+    Then Verify Academic Calendar page is open
+    And Close the browser
