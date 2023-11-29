@@ -29,7 +29,7 @@ def findOverflow(context):
 @then(u'Click WhatsApp button in School of ICT webpage')
 def findX(context):
     findICT(context)
-    twitter = context.driver.find_element(By.CSS_SELECTOR, "#st-2 > div.st-btn.st-last").click()
+    whatsapp = context.driver.find_element(By.CSS_SELECTOR, "#st-2 > div.st-btn.st-last").click()
     sleep(3)
 
 @then(u'Close browser')
