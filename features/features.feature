@@ -17,3 +17,10 @@ Feature: Visit Job Opportunities Page and Financial Aid Page
 		Then Check if the page redirected to Job Opportunities
         Then Input keyword in search bar and hit ENTER
 		And Close browser
+
+	Scenario: Search for Diploma in IT
+		Then Click on courses
+		Then Search for Diploma in Information Technology
+		Then Click on Diploma in IT Card
+		Then Check if redirected to Diploma in IT page
+		And Close browser
