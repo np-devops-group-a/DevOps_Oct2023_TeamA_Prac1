@@ -61,3 +61,55 @@ def inputKeyword(context):
     #For tester to view the search result.
     context.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
     sleep(5)
+
+@then(u'Click on courses')
+def clickCourses(context):
+    courses = context.driver.find_element(By.XPATH, f"//a[text()='Courses']")
+    courses.click()
+    sleep(2)
+
+@then(u'Search for Diploma in Information Technology')
+def searchForDipIT(context):
+    courses = context.driver.find_element(By.CSS_SELECTOR, f"#courseListingSearch")
+    courses.click()
+    courses.send_keys("Information Technology")
+    courses.send_keys(Keys.ENTER)
+    sleep(2)
+
+@then(u'Click on Diploma in IT Card')
+def clickOnDipIT(context):
+    card = context.driver.find_element(By.CSS_SELECTOR, f".card-body")
+    card.click()
+    sleep(2)
+
+@then(u'Check if redirected to Diploma in IT page')
+def verifyDiplomaInITPage(context):
+    assert context.driver.current_url == "https://www.np.edu.sg/schools-courses/academic-schools/school-of-infocomm-technology/diploma-in-information-technology"
+
+@then(u'Click on AskNP')
+def clickOnAskNP(context):
+    sleep(10)
+    chatButton = context.driver.find_element(By.CSS_SELECTOR, f"#webchat-container > *")
+    chatButton.click()
+    sleep(5)
+
+@then(u'Ask a question to AskNP')
+def askQuestionToAskNP(context):
+    sleep(5)
+    chatFrame = context.driver.find_element(By.XPATH, f"//*[@id='customBot']")
+    context.driver.switch_to.frame(chatFrame)
+
+    chatField = context.driver.find_element(By.XPATH, f"//*[@id='textInput']")
+    chatField.click()
+    sleep(1)
+    chatField.send_keys("What is the Diploma in Information Technology?")
+    chatField.send_keys(Keys.ENTER)
+    sleep(2)
+
+@then(u'Check chat result')
+def checkChatResult(context):
+    chat = context.driver.find_element(By.ID, f"scrollingChat")
+
+    number_of_children = len(chat.find_elements(By.CLASS_NAME, "segments"))
+
+    assert(number_of_children >= 3)
