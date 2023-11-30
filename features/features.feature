@@ -24,3 +24,10 @@ Feature: Visit Job Opportunities Page and Financial Aid Page
 		Then Click on Diploma in IT Card
 		Then Check if redirected to Diploma in IT page
 		And Close browser
+
+	Scenario: Talk to the AskNP Chatbot
+		Then Click on courses
+		Then Click on AskNP
+		Then Ask a question to AskNP
+		Then Check chat result
+		And Close browser
