@@ -93,3 +93,59 @@ def step_impl(context):
 #======================================================================
 # End of code to navigate to Diploma in IT page. Done By: Kuan Zher
 #======================================================================
+
+@given(u'Chrome browser is launched')
+def launchChrome(context):
+    context.driver = webdriver.Chrome()
+
+@when(u'Open NP Page')
+def openNPPage(context):
+    context.driver.get("https://www.np.edu.sg")
+
+#Feature 1: Navigate to Internships Page, by Seng Jun    
+@then(u'Hover over Student Services at navigation bar')
+def hoverToStudentServices(context):
+    studentServices = context.driver.find_element(By.XPATH, f"//a[text()='Student Services']")
+    action = ActionChains(context.driver)
+    action.move_to_element(studentServices).perform()
+
+@then(u'Click on Internships')
+def clickInternships(context):
+    internships = context.driver.find_element(By.XPATH, f"//a[text()=\"Internships\"]")
+    internships.click()
+    sleep(3)
+
+@then(u'Check if the page redirected to Internships')
+def verifyFinancialAidPage(context):
+    assert context.driver.current_url == "https://www.np.edu.sg/student-services/internships"
+
+@then(u'Close browser')
+def closeBrowser(context):
+    context.driver.close()
+
+#Feature 2: Navigate to Job Opportunities Page and search based on keyword, by Seng Jun
+@then(u'Hover over Connect at navigation bar')
+def hoverToConnect(context):
+    connect = context.driver.find_element(By.XPATH, f"//a[text()='Connect']")
+    action = ActionChains(context.driver)
+    action.move_to_element(connect).perform()
+
+@then(u'Click on Job Opportunities')
+def clickJobOpportunities(context):
+    jobOpportunities = context.driver.find_element(By.XPATH, f"//a[text()='Job Opportunities']")
+    jobOpportunities.click()
+
+@then(u'Check if the page redirected to Job Opportunities')
+def verifyJobOpportunitiesPage(context):
+    assert context.driver.current_url == "https://www.np.edu.sg/connect/alumni/job-opportunities"
+
+@then(u'Input keyword in search bar and hit ENTER')
+def inputKeyword(context):
+    searchBar = WebDriverWait(context.driver, 20).until(EC.element_to_be_clickable((By.ID, 'jobSearch')))
+    #To change the search keyword, simply overwrite the "Network" text.
+    searchBar.send_keys("Network")
+    searchBar.send_keys(Keys.ENTER)
+    #For tester to view the search result.
+    context.driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
+    sleep(5)
+
